@@ -171,7 +171,7 @@ class Learner:
         self.target_counter = 0
 
         self.merge_module = MergeModule(self.LSTM_HIDDEN_STATE_SIZE,
-                                            self.EMBEDDINGS_PATH)
+                                        self.EMBEDDINGS_PATH)
         if torch.cuda.is_available():
             self.merge_module.cuda()
 
@@ -283,9 +283,11 @@ class Learner:
         # Optimize the model.
         self.optimizer.zero_grad()
         loss.backward()
+        self.optimizer.step()
+
+        # Free memory
         self.merge_module.memory = {}
         self.target.merge_module.memory = {}
-        self.optimizer.step()
         gc.collect()
 
     def save(self, directory):
@@ -311,3 +313,7 @@ class Learner:
             self.target.merge_module.load_state_dict(
                 torch.load(directory + '/target_merge_module.pt',
                            map_location='cpu'))
+        # Free memory
+        self.merge_module.memory = {}
+        self.target.merge_module.memory = {}
+        gc.collect()

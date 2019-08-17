@@ -1,6 +1,3 @@
-import os
-
-
 def exact_p_value(independents, observation):
     def all_binary_combinations(independents):
         probabilities = []
@@ -28,9 +25,11 @@ def exact_p_value(independents, observation):
     return p
 
 
-def test_knowledge(s):
+def test_generalizability(s):
     import sal
     import copy
+    s.learner.G = 1000
+    s.learner.GE = 1000
     for word_pair in (('grab', 'set'), ('pluck', 'rest'), ('grip', 'put'),
                       ('get', 'leave'), ('acquire', 'deposit'),
                       ('grasp', 'lay'), ('clasp', 'position'),
@@ -93,10 +92,7 @@ def test_knowledge(s):
 
 def latexable_innerese_operator_traces(dir):
     import dill
-    traces = dill.load(open(
-        os.path.dirname(os.path.abspath(__file__))
-        + '/' + dir + '/innerese_operator_traces.b',
-        'rb'))
+    traces = dill.load(open(dir + '/innerese_operator_traces.b', 'rb'))
     string = ''
     for epoch in traces:
         i = 0
