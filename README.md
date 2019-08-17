@@ -1,7 +1,4 @@
-First, add all of the directories (sal/sal, sal/trained_models, sal/domains) to your Python path.
-You may also need to install the relevant Python package dependencies for this project.
-The following commands, entered in a Python 3 terminal, show how to use SAL.
-Note that everywhere you see <desired model directory>, an absolute path must be typed.
+First, add all of the directories (sal/sal, sal/trained_models, sal/domains) to your Python path. You may also need to install the relevant Python package dependencies for this project. The following commands, entered in a Python 3 terminal, show how to use SAL. Note that everywhere you see <desired model directory>, an absolute path must be typed.
 
 
 To initialize SAL with self referential operators:
@@ -31,7 +28,7 @@ del s.atoms.atoms['externalize']
 ```
 
 
-Note that after SAL's problems are initialized, a simulator visual file will be printed, (such as '.49456.txt'). After SAL starts solving problems, you can open up another terminal and enter the following command to see a real time visualization of the problem that SAL is solving:
+Note that after SAL's problems are initialized, a simulator visual file will be printed, (such as '.49456.txt'). You will get a FileNotFoundError if you try to access this visualization too soon. But after SAL starts solving problems, you can open up another terminal and enter the following command to see a real time visualization of the problem that SAL is solving:
 
 ```python
 import manipulation
