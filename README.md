@@ -31,6 +31,14 @@ del s.atoms.atoms['externalize']
 ```
 
 
+Note that after SAL's problems are initialized, a simulator visual file will be printed, (such as '.49456.txt'). After SAL starts solving problems, you can open up another terminal and enter the following command to see a real time visualization of the problem that SAL is solving:
+
+```python
+import manipulation
+manipulation.SimulatorVisualizer.visualize('.<number given>.txt')
+```
+
+
 Trained SAL instances are provided in sal/trained_models/manipulation_self_referential and sal/trained_models/manipulation_not_self_referential.
 To load a saved SAL instance:
 
