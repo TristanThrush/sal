@@ -34,7 +34,7 @@ Trained SAL instances are provided in sal/trained_models/manipulation_self_refer
 To load a saved SAL instance:
 
 ```python
-s.load(<desired directory>)
+s.load(<desired model directory>)
 ```
 
 
@@ -53,7 +53,7 @@ To train SAL yourself for 40 epochs, followed by saving your model:
 s.learner.G = 500  # Change to 150 if training SAL without self-referential operators
 s.learner.GE = 2
 s.learn(40)
-s.save(<desired directory>)
+s.save(<desired model directory>)
 ```
 
 
@@ -69,5 +69,5 @@ To print a latex-friendly readout of the entire training history of a saved SAL 
 
 ```python
 import analysis
-analysis.latexable_innerese_operator_traces(s)
+analysis.latexable_innerese_operator_traces(<desired model directory>)
 ```
