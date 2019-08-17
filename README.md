@@ -10,7 +10,7 @@ import sal
 import manipulation
 s = sal.SAL()
 s.atoms = manipulation.ManipulationAtoms()
-s.atoms = manipulation.ManipulationProblems()
+s.problems = manipulation.ManipulationProblems()
 ```
 
 
@@ -21,7 +21,7 @@ import sal
 import manipulation
 s = sal.SAL()
 s.atoms = manipulation.ManipulationAtoms()
-s.atoms = manipulation.ManipulationProblems()
+s.problems = manipulation.ManipulationProblems()
 del s.atoms.atoms['then']
 del s.atoms.atoms['remember']
 del s.atoms.atoms['forget']
