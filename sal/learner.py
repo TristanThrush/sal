@@ -292,19 +292,18 @@ class Learner:
         gc.collect()
 
     def save(self, directory):
-        temp_memory = copy.deepcopy(self.replay_memory.memory)
-        self.replay_memory = ReplayMemory(self.REPLAY_MEMORY_SIZE)
-        [self.replay_memory.push(transition[0], transition[1],
-                                 transition[2].type(torch.FloatTensor))
-         for transition in temp_memory]
-        dill.dump(self.replay_memory, open(
+        converted_replay_memory =\
+            ReplayMemory(self.REPLAY_MEMORY_SIZE)
+        [converted_replay_memory.push(
+            transition[0], transition[1],
+            transition[2].type(torch.FloatTensor))
+         for transition in self.replay_memory]
+        dill.dump(converted_replay_memory, open(
             directory + '/replay_memory.b', 'wb'))
         torch.save(self.merge_module.state_dict(),
                    directory + '/policy_merge_module.pt')
         torch.save(self.target.merge_module.state_dict(),
                    directory + '/target_merge_module.pt')
-        self.replay_memory = ReplayMemory(self.REPLAY_MEMORY_SIZE)
-        self.replay_memory.memory = temp_memory
 
     def load(self, directory):
         self.replay_memory = ReplayMemory(self.REPLAY_MEMORY_SIZE)
