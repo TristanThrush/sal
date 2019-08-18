@@ -6,6 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from torch.autograd import Variable
+import copy
 import os
 import dill
 from generator import OperatorGenerator
@@ -291,6 +292,11 @@ class Learner:
         gc.collect()
 
     def save(self, directory):
+        temp_memory = copy.deepcopy(self.replay_memory.memory)
+        self.replay_memory = ReplayMemory(self.REPLAY_MEMORY_SIZE)
+        [self.replay_memory.push(transition[0], transition[1],
+                                 transition[2].type(torch.FloatTensor))
+         for transition in temp_memory]
         dill.dump(self.replay_memory, open(
             directory + '/replay_memory.b', 'wb'))
         torch.save(self.merge_module.state_dict(),
@@ -299,20 +305,24 @@ class Learner:
                    directory + '/target_merge_module.pt')
 
     def load(self, directory):
-        self.replay_memory = dill.load(
-            open(directory + '/replay_memory.b', 'rb'))
-        if torch.cuda.is_available():
+        self.replay_memory = ReplayMemory(self.REPLAY_MEMORY_SIZE)
+        [self.replay_memory.push(transition[0], transition[1],
+                                 transition[2].type(FloatTensor))
+         for transition in dill.load(open(
+            directory + '/replay_memory.b', 'rb')).memory]
+        if torch.cuda.is_availiable():
             self.merge_module.load_state_dict(
-                torch.load(directory + '/policy_merge_module.pt'))
+                    torch.load(directory + '/policy_merge_module.pt'))
             self.target.merge_module.load_state_dict(
-                torch.load(directory + '/target_merge_module.pt'))
+                    torch.load(directory + '/target_merge_module.pt'))
         else:
             self.merge_module.load_state_dict(
-                torch.load(directory + '/policy_merge_module.pt',
-                           map_location='cpu'))
+                    torch.load(directory + '/policy_merge_module.pt',
+                               map_location=torch.device('cpu')))
             self.target.merge_module.load_state_dict(
-                torch.load(directory + '/target_merge_module.pt',
-                           map_location='cpu'))
+                    torch.load(directory + '/target_merge_module.pt',
+                               map_location=torch.device('cpu')))
+
         # Free memory
         self.merge_module.memory = {}
         self.target.merge_module.memory = {}
