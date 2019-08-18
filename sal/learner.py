@@ -303,6 +303,8 @@ class Learner:
                    directory + '/policy_merge_module.pt')
         torch.save(self.target.merge_module.state_dict(),
                    directory + '/target_merge_module.pt')
+        self.replay_memory = ReplayMemory(self.REPLAY_MEMORY_SIZE)
+        self.replay_memory.memory = temp_memory
 
     def load(self, directory):
         self.replay_memory = ReplayMemory(self.REPLAY_MEMORY_SIZE)
