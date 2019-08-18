@@ -297,7 +297,7 @@ class Learner:
         [converted_replay_memory.push(
             transition[0], transition[1],
             transition[2].type(torch.FloatTensor))
-         for transition in self.replay_memory]
+         for transition in self.replay_memory.memory]
         dill.dump(converted_replay_memory, open(
             directory + '/replay_memory.b', 'wb'))
         torch.save(self.merge_module.state_dict(),
