@@ -1,4 +1,4 @@
-The following instructions were tested with OSX and Ubuntu.
+The following instructions were tested with OSX and Ubuntu with and without CUDA.
 
 Note that I use Git LFS, so you should clone this repository with ```git lfs clone```.
 
