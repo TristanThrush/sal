@@ -310,7 +310,7 @@ class Learner:
                                  transition[2].type(FloatTensor))
          for transition in dill.load(open(
             directory + '/replay_memory.b', 'rb')).memory]
-        if torch.cuda.is_availiable():
+        if torch.cuda.is_available():
             self.merge_module.load_state_dict(
                     torch.load(directory + '/policy_merge_module.pt'))
             self.target.merge_module.load_state_dict(
