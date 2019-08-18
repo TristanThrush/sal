@@ -1,3 +1,7 @@
+The following instructions were tested with OSX and Ubuntu.
+
+Note that I use Git LFS, so you should clone this repository with ```git lfs clone```.
+
 First, add all of the directories (sal/sal, sal/trained_models, sal/domains) to your Python path. You may also need to install the relevant Python package dependencies for this project. The following commands, entered in a Python 3 terminal, show how to use SAL. Note that everywhere you see ```<desired model directory>```, an absolute path must be typed.
 
 
